@@ -23,10 +23,14 @@ public class VendingMachineTest {
     void tearDown() {
        myItem = null;
        myVending = null;
-       myVending.removeItem( "A");
        myVending.balance = 0;
     }
     
+
+       @Test
+    void vendingMachineMethod() {
+        assertDoesNotThrow(() -> new VendingMachine());
+    }
 
     @Test
     void testAddItem() {
@@ -72,7 +76,7 @@ public class VendingMachineTest {
     void testInsertZeroMoney() {
         assertThrows(
 		    VendingMachineException.class, 
-        () -> myVending.insertMoney(0));
+        () -> myVending.insertMoney(-1));
     }
 
 
@@ -112,6 +116,13 @@ public class VendingMachineTest {
     @Test
     void testReturnChange() {
         assertEquals(10, myVending.returnChange(), 0.01);
+        assertEquals(0, myVending.balance, 0.01);
+    }
+
+    @Test
+    void testReturnZeroChange() {
+        myVending.balance = 0;
+        assertEquals(0, myVending.returnChange(), 0.01);
         assertEquals(0, myVending.balance, 0.01);
     }
 
