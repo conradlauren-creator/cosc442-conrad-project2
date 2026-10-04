@@ -211,7 +211,7 @@ public class VendingMachine {
 	// INJECTED FAULT FOR TEST VALIDATION
 	public double returnChange() {
 		double change = this.balance;
-		this.balance = 0;
+		//this.balance = 0;
 		return change;
 	}
 }

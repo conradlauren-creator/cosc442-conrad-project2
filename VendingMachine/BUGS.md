@@ -32,19 +32,29 @@ Reading the Javadocs provided insight on how the program was supposed to functio
 The correction you made:
 if (amount < 0)
 
+## INJECTED FAULT FOR TEST VALIDATION
 ## Class: VendingMachine, Method: ReturnChange()
 
-The observed failure:
-Not exactly a failure, but more of a concern. Change of any value can be returned, but logically only change greater than 
+The fault you introduced:
+Introduced a fault in return change, where balance is not set to 0 after change is returned.
 
-The test that exposed it:
-void testInsert_LessThanOneGreaterThanZero_Money() {}
+The test or tests that failed:
+@ParameterizedTest 
+@ValueSource(ints = {-1000000000, -1, 0, 1, 100, 1000000000})
+void testReturnChange(int nums) {
+    myVending.balance = nums;
+    //ASSERT
+    assertEquals(nums, myVending.returnChange(), 0.01);
+    assertEquals(0, myVending.balance, 0.01);
+}
 
-The source-code fault that caused it:
-In the method insertMoney(), the if statement says if (amount < 1), throw an exception
+The relevant JUnit failure message:
 
-How you diagnosed the fault:
-Reading the Javadocs provided insight on how the program was supposed to function. Any amount of money greater than zero should be accepted, yet the if statement only accepted money greater than one.
+AssertionFailedError: expected: [0.0] but was: [-1000000000.0]
+AssertionFailedError: expected: [0.0] but was: [-1.0]
+AssertionFailedError: expected: [0.0] but was: [1.0]
+AssertionFailedError: expected: [0.0] but was: [100.0]
+AssertionFailedError: expected: [0.0] but was: [1000000000.0]
 
-The correction you made:
-if (amount < 0)
+A short explanation of why the test detected the fault:
+The test detected the fault because it asserted that after the function ran, the balance was equal to 0 as the instructions specified. But due to the bug, the balance was not set to 0.
