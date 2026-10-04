@@ -7,13 +7,17 @@ public class VendingMachineExceptionTest {
 
     @Test
     void testEmptyVendingMachineException() {
+        //ARRANGE
         myVendingException = new VendingMachineException();
+        //ASSERT
         assertEquals(null, myVendingException.getMessage());
     }
 
     @Test
     void testVendingMachineException(){
+        //ARRANGE
         myVendingException = new VendingMachineException("Reason");
+        //ASSERT
         assertEquals("Reason", myVendingException.getMessage());
 
     }

@@ -21,23 +21,27 @@ public class VendingMachineItemTest {
 
    @Test
     void testValidVendingMachineItem() {
+        //ASSERT
         assertEquals("Doritos", myItem.getName());
         assertEquals(1.25, myItem.getPrice(), 0.0001);
     }
 
     @Test
     void testNegativeItemPrice() {
+        //ASSERT
          assertThrows(VendingMachineException.class,
         () -> new VendingMachineItem("Chicken", -1.25));
     }
    
     @Test
     void testGetName() {
+        //ASSERT
         assertEquals("Doritos", myItem.getName());
     }
 
     @Test
     void testGetPrice() {
+        //ASSERT
         assertEquals(1.25, myItem.getPrice());
     }
 }

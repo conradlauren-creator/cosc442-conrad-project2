@@ -29,25 +29,30 @@ public class VendingMachineTest {
 
        @Test
     void vendingMachineMethod() {
+        //ASSERT
         assertDoesNotThrow(() -> new VendingMachine());
     }
 
     @Test
     void testAddItem() {
+        //ACT
         myVending.addItem(myItem,"B");
+        //ASSERT
         assertEquals(myItem, myVending.getItem("B"));
         myVending.removeItem("B");
     }
 
     @Test 
     void testAddAlreadyFullItem() {
-    assertThrows(
+        //ASSERT
+        assertThrows(
 		    VendingMachineException.class, 
         () -> myVending.addItem(myItem, "A"));
     }
 
     @Test
     void testAddItemWithInvalidCode() {
+        //ASSERT
         assertThrows(
 		    VendingMachineException.class, 
         () -> myVending.addItem(myItem, "F"));
@@ -55,12 +60,14 @@ public class VendingMachineTest {
 
     @Test
     void testGetBalance() {
+       //ASSERT 
         assertEquals(10, myVending.getBalance(), 0.01);
     }
 
 
     @Test
     void testGetItem() {
+        //ASSERT
         assertEquals(myItem, myVending.getItem("A"));
         assertEquals(null, myVending.getItem("D"));
     }
@@ -68,12 +75,15 @@ public class VendingMachineTest {
 
     @Test
     void testInsertMoney() {
+        //ACT
         myVending.insertMoney(5);
+        //ASSERT
         assertEquals(15, myVending.balance, 0.01);
     }
 
     @Test
     void testInsertZeroMoney() {
+        //ASSERT
         assertThrows(
 		    VendingMachineException.class, 
         () -> myVending.insertMoney(-1));
@@ -82,17 +92,21 @@ public class VendingMachineTest {
 
     @Test
     void testMakePurchase() {
+        //ASSERT
         assertTrue(myVending.makePurchase("A"));
     }
 
     @Test
     void testMakeNegativePurchase() {
+        //ACT
         myVending.balance = 1;
+        //ASSERT
         assertFalse(myVending.makePurchase("A"));
     }
 
     @Test
     void testMakePurchaseWithWrongCode() {
+        //ASSERT
          assertThrows(
 		    VendingMachineException.class, 
         () -> myVending.makePurchase("F"));
@@ -102,33 +116,40 @@ public class VendingMachineTest {
 
     @Test
     void testRemoveItem() {
+        //ASSERT
         assertEquals(myItem, myVending.removeItem("A"));
     }
 
     @Test 
     void testRemoveAlreadyEmptyItem() {
-    assertThrows(
-		    VendingMachineException.class, 
-        () -> myVending.removeItem("B"));
+        //ASSERT
+        assertThrows(
+                VendingMachineException.class, 
+            () -> myVending.removeItem("B"));
     }
 
 
     @Test
     void testReturnChange() {
+        //ASSERT
         assertEquals(10, myVending.returnChange(), 0.01);
         assertEquals(0, myVending.balance, 0.01);
     }
 
     @Test
     void testReturnZeroChange() {
+        //ACT
         myVending.balance = 0;
+        //ASSERT
         assertEquals(0, myVending.returnChange(), 0.01);
         assertEquals(0, myVending.balance, 0.01);
     }
 
     @Test
     void testReturnNegativeChange() {
+        //ACT
         myVending.balance = 0;
+        //ASSERT
         assertThrows(
 		    VendingMachineException.class, 
         () -> myVending.returnChange());
