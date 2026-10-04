@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 
 public class VendingMachineExceptionTest {
     
@@ -10,7 +11,7 @@ public class VendingMachineExceptionTest {
         //ARRANGE
         myVendingException = new VendingMachineException();
         //ASSERT
-        assertEquals(null, myVendingException.getMessage());
+        assertNull(myVendingException.getMessage());
     }
 
     @Test

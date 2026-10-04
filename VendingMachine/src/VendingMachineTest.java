@@ -1,4 +1,6 @@
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.*; 
@@ -23,7 +25,6 @@ public class VendingMachineTest {
     void tearDown() {
        myItem = null;
        myVending = null;
-       myVending.balance = 0;
     }
     
 
@@ -66,12 +67,24 @@ public class VendingMachineTest {
 
 
     @Test
-    void testGetItem() {
+    void testGetValidItem() {
         //ASSERT
         assertEquals(myItem, myVending.getItem("A"));
-        assertEquals(null, myVending.getItem("D"));
     }
 
+    @Test
+    void testGetNullItem() {
+        //ASSERT
+        assertNull(myVending.getItem("D"));
+    }
+
+    @Test
+    void testGetNonexistentItem() {
+        //ASSERT
+        assertThrows(
+		    VendingMachineException.class, 
+        () ->  myVending.getItem("F"));
+    }
 
     @Test
     void testInsertMoney() {
@@ -129,31 +142,15 @@ public class VendingMachineTest {
     }
 
 
-    @Test
-    void testReturnChange() {
+    @ParameterizedTest 
+    @ValueSource(ints = {-1000000000, -1, 0, 1, 100, 1000000000})
+    void testReturnChange(int nums) {
+        myVending.balance = nums;
         //ASSERT
-        assertEquals(10, myVending.returnChange(), 0.01);
+        assertEquals(nums, myVending.returnChange(), 0.01);
         assertEquals(0, myVending.balance, 0.01);
     }
 
-    @Test
-    void testReturnZeroChange() {
-        //ACT
-        myVending.balance = 0;
-        //ASSERT
-        assertEquals(0, myVending.returnChange(), 0.01);
-        assertEquals(0, myVending.balance, 0.01);
-    }
-
-    @Test
-    void testReturnNegativeChange() {
-        //ACT
-        myVending.balance = 0;
-        //ASSERT
-        assertThrows(
-		    VendingMachineException.class, 
-        () -> myVending.returnChange());
-    }
 
 
 }
