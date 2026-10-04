@@ -1,68 +1,20 @@
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 public class VendingMachineExceptionTest {
-    @Test
-    void testAddSuppressed() {
+    
+    VendingMachineException myVendingException;
 
+    @Test
+    void testEmptyVendingMachineException() {
+        myVendingException = new VendingMachineException();
+        assertEquals(null, myVendingException.getMessage());
     }
 
     @Test
-    void testFillInStackTrace() {
-
-    }
-
-    @Test
-    void testGetCause() {
-
-    }
-
-    @Test
-    void testGetLocalizedMessage() {
-
-    }
-
-    @Test
-    void testGetMessage() {
-
-    }
-
-    @Test
-    void testGetStackTrace() {
-
-    }
-
-    @Test
-    void testGetSuppressed() {
-
-    }
-
-    @Test
-    void testInitCause() {
-
-    }
-
-    @Test
-    void testPrintStackTrace() {
-
-    }
-
-    @Test
-    void testPrintStackTrace2() {
-
-    }
-
-    @Test
-    void testPrintStackTrace3() {
-
-    }
-
-    @Test
-    void testSetStackTrace() {
-
-    }
-
-    @Test
-    void testToString() {
+    void testVendingMachineException(){
+        myVendingException = new VendingMachineException("Reason");
+        assertEquals("Reason", myVendingException.getMessage());
 
     }
 }
