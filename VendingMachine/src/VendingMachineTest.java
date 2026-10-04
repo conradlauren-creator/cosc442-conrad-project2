@@ -95,7 +95,15 @@ public class VendingMachineTest {
     }
 
     @Test
-    void testInsertZeroMoney() {
+    void testInsert_LessThanOneGreaterThanZero_Money() {
+        //ACT
+        myVending.insertMoney(0.90);
+        //ASSERT
+        assertEquals(10.90, myVending.balance, 0.001);
+    }
+
+    @Test
+    void testInsertNegativeMoney() {
         //ASSERT
         assertThrows(
 		    VendingMachineException.class, 
